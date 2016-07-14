@@ -8,7 +8,7 @@ strAll =    [
             '(([{(((((((((((2, 3)))))))))))))',
             '{(((((((((((((3, 3))))))))))))}',
             '({({(((]4)))})}',
-            '(((5)))'
+            '((((5)))'
             ]
 
 #######                 Work Siquece           #######
@@ -61,36 +61,28 @@ def checkOrderParentheAmount(varDict, mySource):
     for parenthe in varDict:
         if checks(parenthe):
             tmpList = varDict[varDict[parenthe][2]][1][::-1]
-            #print (varDict[parenthe][0], tmpList, currVa.f_lineno)
-            #print "print from checkOrderParentheAmount first->{}\t\t second->{} ^{}^".format(varDict[parenthe][0], tmpList, currVa.f_lineno)
             iteratorIncr = 0
-            while iteratorIncr < len(mySource):
-                if  len(varDict[parenthe][0]) > iteratorIncr and \
+            while iteratorIncr < len(mySource):                         #проверить "in" содержание по типу в листе антогониста
+                #print(varDict[parenthe][0][iteratorIncr])
+                if  len(varDict[parenthe][0]) > iteratorIncr and \      #   
                     len(tmpList) > iteratorIncr and \
-                    varDict[parenthe][0][iteratorIncr] != tmpList[iteratorIncr]:
+                    (varDict[parenthe][0][iteratorIncr] not in tmpList or \
+                    tmpList[iteratorIncr] not in varDict[parenthe][0]):
+                    #varDict[parenthe][0][iteratorIncr] != tmpList[iteratorIncr]:
                     
-                    print "erorr#3: parenthe type '{}' in position {} haven`t proper pair ".format(parenthe, varDict[parenthe][0][iteratorIncr]) #!!
+                    print "erorr#3: parenthe type '{}' in position {} haven`t proper pair ".format(parenthe, varDict[parenthe][0][iteratorIncr])
                 iteratorIncr += 1
-#            for position in varDict[parenthe][0]:                    
-                #print "{} ||  {}       ^{}^".format(parenthe, position , currVa.f_lineno)
-    #            if position != next(tmpList):  #CHECK
-    #                print "erorr: parenthe '{}' in position {} haven`t pair ".format(parenthe, position)      
-            #for count in varDict[parenthe]:
-            #openParenthe = '({['
-            #closeParenthe = ')}]'
-            #if (parenthe in openParenthe) and varDict[varDict[parenthe][2]][1][0] > varDict[length]/2:
-             #   pass
-           #3 #if varDict[parenthe][0]) == varDict[varDict[parenthe][3]][0][::-1] # erorr in siquence parenthe
 
-#########        MAIN       #######
-#strNum = 4#input("insert num  str\t\t") 
-for strNum in range(0,len(strAll)):
-    print "parced strind @{}@".format(strAll[strNum])
-    fill(globDict,strAll[strNum])
-    checkAmountParenthe(globDict)
-    checkOrderParenthe(globDict,strAll[strNum])
-    checkOrderParentheAmount(globDict,strAll[strNum])
-#for item in globDict:
-#    print '{}\t\t{}^{}^'.format(item , globDict[item], currVa.f_lineno)
-#print (globDict['('][0], globDict[globDict['('][2]][1][::-1], currVa.f_lineno)
+
+#########        MAIN       ####### 
+strNum = 5
+#for strNum in range(0,len(strAll)):
+print "parced strind @{}@".format(strAll[strNum])
+fill(globDict,strAll[strNum])
+checkAmountParenthe(globDict)
+checkOrderParenthe(globDict,strAll[strNum])
+checkOrderParentheAmount(globDict,strAll[strNum])
+for i in globDict:
+    print "{}  {}".format(i, globDict[i]) 
+
 
