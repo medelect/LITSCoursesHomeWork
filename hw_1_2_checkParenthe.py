@@ -12,7 +12,7 @@ strAll =    [
             ]
 
 #######                 Work Siquece           #######
-globDict= {'(':[[], [], ')', 'o'],
+globDict = globDictBase = {'(':[[], [], ')', 'o'],
            ')':[[], [], '(', 'c'],
            '{':[[], [], '}', 'o'],
            '}':[[], [], '{', 'c'],
@@ -28,6 +28,7 @@ def checks(var):
         return False
     #########        fill      #######
 def fill(myDict, mySource):
+    myDict = globDictBase
     counterIncrement = 0
     counterDecrement = len(mySource)+1
     for item in mySource:
@@ -52,7 +53,6 @@ def checkOrderParenthe(varDict, mySource):
     for parenthe in varDict:
         if checks(parenthe) and varDict[parenthe][3] == 'c':
             for position in varDict[parenthe][0]:
-                #print 'MARKER!!! 1 !!!  {}   {}'.format(len(mySource)/2, position)
                 if position <= len(mySource)/2+1 and position < varDict['n'][0][0]:
                     print "erorr#2: in order type parenthe, type is '{}'  position: {}".format(parenthe, position)
                           
@@ -60,19 +60,9 @@ def checkOrderParenthe(varDict, mySource):
 def checkOrderParentheAmount(varDict, mySource):
     for parenthe in varDict:
         if checks(parenthe):
-            tmpList = varDict[varDict[parenthe][2]][1][::-1]
-            iteratorIncr = 0
-            while iteratorIncr < len(mySource):                         #проверить "in" содержание по типу в листе антогониста
-                #print(varDict[parenthe][0][iteratorIncr])
-                if  len(varDict[parenthe][0]) > iteratorIncr and \      #   
-                    len(tmpList) > iteratorIncr and \
-                    (varDict[parenthe][0][iteratorIncr] not in tmpList or \
-                    tmpList[iteratorIncr] not in varDict[parenthe][0]):
-                    #varDict[parenthe][0][iteratorIncr] != tmpList[iteratorIncr]:
-                    
-                    print "erorr#3: parenthe type '{}' in position {} haven`t proper pair ".format(parenthe, varDict[parenthe][0][iteratorIncr])
-                iteratorIncr += 1
-
+            if set(varDict[parenthe][0]) - set(varDict[varDict[parenthe][2]][1]):
+                tmpList = list(set(varDict[parenthe][0]) - set(varDict[varDict[parenthe][2]][1]))
+                print "erorr#3_1: parenthe type '{}' in position {} haven`t proper pair ".format(parenthe, tmpList)
 
 #########        MAIN       ####### 
 strNum = 5
@@ -82,7 +72,4 @@ fill(globDict,strAll[strNum])
 checkAmountParenthe(globDict)
 checkOrderParenthe(globDict,strAll[strNum])
 checkOrderParentheAmount(globDict,strAll[strNum])
-for i in globDict:
-    print "{}  {}".format(i, globDict[i]) 
-
 
