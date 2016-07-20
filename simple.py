@@ -7,6 +7,9 @@ import math
 #sys.path.append(r"/home/axe/projects/homeWork/virtPyQt5/pyqt5/lib/python3.5/site-packages/")
 
 from PyQt5.QtWidgets import QApplication, QWidget
+
+#from PyQt5 import QtGui
+#from QtGui import QApplication, QWidget
 #from PyQt5.QtCore import *
 
 #print(sys.path)
