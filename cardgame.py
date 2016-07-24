@@ -1,5 +1,6 @@
 from random import randint
 
+#Alex please add the comments
 class Card:
     def __init__(self,data):
         self.idCard = data[0]
