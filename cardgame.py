@@ -34,6 +34,6 @@ class GameBatch:
 
 
 
-
-user = GameBatch()
-user.printCard(user.getCard())
+if __name__ == '__main__':
+    user = GameBatch()
+    user.printCard(user.getCard())
