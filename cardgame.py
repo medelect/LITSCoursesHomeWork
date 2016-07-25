@@ -24,7 +24,7 @@ class GameBatch:
 
     def getCard(self):			# first needed methosd hi's run get u one card from batch object wich was unusable before
         while True:
-            rnd = randint(1,54)
+            rnd = randint(1,56)
             if self.cardBatchDict[rnd].status:
                 self.cardBatchDict[rnd].status = False
                 return  self.cardBatchDict[rnd]
