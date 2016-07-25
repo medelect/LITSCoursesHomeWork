@@ -1,7 +1,6 @@
 from random import randint
 
-#Alex please add the comments
-class Card:				#class-collection for data about one card
+class Card:				            #class-collection for data about one card
     def __init__(self,data):		#hi's havent any methods as u can see
         self.idCard = data[0]
         self.num = data[1]
@@ -22,7 +21,7 @@ class GameBatch:
                 else:
                     self.cardBatchDict[counter] = Card([counter,n,tps,n,True])
 
-    def getCard(self):			# first needed methosd hi's run get u one card from batch object wich was unusable before
+    def getCard(self):			# first needed method hi's run get u one card from batch object which was unusable before
         while True:
             rnd = randint(1,54)
             if self.cardBatchDict[rnd].status:
@@ -38,3 +37,59 @@ class GameBatch:
 if __name__ == '__main__':		#simple test
     user = GameBatch()			# we test both classes in this line when we cheate class container
     user.printCard(user.getCard())	# we use short version (when func use other func which get needed object) in this we line get card and print it
+
+def welcome():
+    print("Welccome to the game '21'\n")
+
+#user and pc
+
+#card values
+def cardVal(user):
+    cardVal = 0
+    cardsTotal = 0
+    cardNo = 0
+    while cardNo < 2:
+        card = user[cardNo][0]
+        if card == "T":
+            cardVal = 11
+        elif card == "K":
+            cardVal = 4
+        elif card == "D":
+            cardVal = 3
+        elif card == "V":
+            cardVal = 2
+        elif card == "2":
+            cardVal = 2
+        elif card == "3":
+            cardVal = 3
+        elif card == "4":
+            cardVal = 4
+        elif card == "5":
+            cardVal = 5
+        elif card == "6":
+            cardVal = 6
+        elif card == "7":
+            cardVal = 7
+        elif card == "8":
+            cardVal = 8
+        elif card == "9":
+            cardVal = 9
+        else:
+            cardVal = 10
+
+        cardNo += 1
+        cardsTotal = cardsTotal + cardVal
+
+    return cardsTotal
+
+
+welcome()
+
+#deal cards to pc and user
+
+#calculate
+
+#print result
+
+#exit game
+print("Game Over!")
