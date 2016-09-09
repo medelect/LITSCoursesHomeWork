@@ -22,6 +22,18 @@ def funcArgParser(argList):
         funcArgHash[item[0]] = [argCnt, argList[-1]]
 
 
+def funcActionAnaliser(commandsList):
+    pass
+
+def funcActionReader():
+    funcList = []
+    while True:
+        funcList.append(raw_input(''))
+        if funcList[0] == 'return':
+            break
+    return funcList
+
+
 def action(arg1, arg2, actionType):
     assert (type(arg1) == type(arg2)), '@action@=> argument types not equal'
     assert (actionType in ['+','-','*','/']), '@action@=> uncnown action'
@@ -51,33 +63,45 @@ def operations(strList):
                 tmp.insert(ind-1, tmpAct)
                 break
     return tmp[0]
+# ---------- type parsers start
+def prcInt(lst, dct):
+    dct[lst[0]] = int(lst[2])
+    return dct
+
+def prcList(lst, dct):
+    name = lst[0]                                                              
+    for i in [0, 0, -1, -1, -1]: lst.pop(i)                                
+    lst = list(map(lambda x: x.replace('[', '').replace(']', ''), ist)) 
+    lst = list(map(lambda x: int(x.replace(',', '')),lst))            
+    dct[name] = lst                                                        
+
+def prcFunc(lst, dct):
+    new = []                               
+    tmp = lst[4:]                
+    tmp[0] = tmp[0].replace('(','')  
+    tmp[-1] = tmp[-1].replace(')','') 
+    tmp = " ".join(tmp)                
+    tmp = tmp.split(";")                
+    for i in tmp:                      
+        i = i.strip(' ')                
+        new.append(i)                  
+    actLst = funcActionReader()
+    dct[strList[0]] = [new, actLst]               
+    return dct
+# --------- typeparsers end
             
 
 def mainParser(strList):
     print (strList)
 
     if strList[-1] == "int":
-        GDH[strList[0]] = int(strList[2])
-        print("int", strList[0], strList[2])
+        GDH = prcInt(strList, GDH)
 
     elif strList[-1] == "list":
-        strList[2] = strList[2].replace('(','')
-        strList[-4] = strList[-4].replace(')','')
-        GDH[strList[0]] = strList[2:-3]
-        print("list", strList[0],strList[2:-3])
+        GDH = prcList(strList, GDH)
 
-    elif len(strList) > 1 and strList[2] == "function":
-        new = []
-        tmp = strList[4:]
-        tmp[0] = tmp[0].replace('(','')
-        tmp[-1] = tmp[-1].replace(')','')
-        tmp = " ".join(tmp)
-        tmp = tmp.split(";")
-        for i in tmp:
-            i = i.strip(' ')
-            new.append(i)
-        GDH[strList[0]] = new
-        print "function", strList[0], new    
+    elif strList[2] == "function":
+        GDH = prcFunc(strList, GDH)              
 
     elif set(strList) & set(['+','-','*','/']):
         for val in GDH.keys():
@@ -87,6 +111,20 @@ def mainParser(strList):
                 strList.insert(ind, GDH[val])
         print strList   
         print operations(strList)
+    
+    elif strList[0] == 'head':
+        if strList[2] in GDH.keys():
+            if type(GDH[strList[2]]) == type([]):
+                print (GDH[strList[2]][0])
+            else: print ('{} not is list'.format(GDH[strList[2]]))
+        else: print('uncnown variable') 
+        
+    elif strList[0] == 'tail':
+        if strList[2] in GDH.keys():
+            if type(GDH[strList[2]]) == type([]): 
+                print (GDH[strList[2]][1:])
+            else: print ('{} {} not is list'.format(type(GDH[strList[2]]), GDH[strList[2]]))
+        else: print('uncnown variable') 
 
     else:
         print('uncnow command ', strList)
